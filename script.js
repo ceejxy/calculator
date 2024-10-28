@@ -54,4 +54,12 @@ digit.forEach(digit => {
     })
 })
 
+const clear = document.querySelector('.clear')
+
+clear.addEventListener('click', function() {
+    if (inputDisplay.innerText != '') {
+        inputDisplay.innerText = '';
+    }
+})
+
 
