@@ -1,114 +1,136 @@
 // math operations
 
-let add = function(...args) {
-    if (args.length === 0) return 0;
+let add = function(nums) {
+    if (nums.length === 0) return 0;
 
-    return args
-    .reduce((total, arg) => total + arg);
+    return nums
+    .reduce((total, num) => total + num);
 }
 
-let subtract = function(...args) {
-    if (args.length === 0) return 0;
+let subtract = function(nums) {
+    if (nums.length === 0) return 0;
 
-    return args
-    .reduce((total, arg) => total - arg)
+    return nums
+    .reduce((total, num) => total - num)
 }
 
-let multiply = function(...args) {
-    if (args.length === 0) return 0;
+let multiply = function(nums) {
+    if (nums.length === 0) return 0;
 
-    return args
-    .reduce((total, arg) => total * arg)
+    return nums
+    .reduce((total, num) => total * num)
 }
 
-let divide = function(...args) {
-    if (args.length === 0) return 0;
+let divide = function(nums) {
+    if (nums.length === 0) return 0;
 
-    return args
-    .reduce((total, arg) => total / arg)
+    return nums
+    .reduce((total, num) => total / num)
+}
+
+let percent = function(num) {
+    return num / 100;
 }
 
 
-// runs the corresponding operator function
-let operate = function(num1, operator, num2) {
-
-    if (operator === '+') return add(num1, num2);
-    if (operator === '—') return subtract(num1, num2);
-    if (operator === '*') return multiply(num1, num2);
-    if (operator === '/') return divide(num1, num2);
-}
-
-const inputDisplay = document.querySelector('.inputDisplay')
-const operatorButton = document.querySelectorAll('.operator');
-
-// gets the operator that is going to be used. Grays out the button to indicate it has been selected
-operatorButton.forEach(operatorButton => {
-    operatorButton.addEventListener('click', function() {
-        operator = operatorButton.innerText;
-        operatorButton.style.backgroundColor = 'gray';
-        inputDisplay.innerText = '';
-        return operator;
-    })
-})
+// get numbers operator for equation 
 
 const digits = document.querySelectorAll('.digit')
 
-// Makes button show on display when clicked
-digits.forEach(digits => {
-    digits.addEventListener('click', function() {
-        number = digits.innerText;
-        inputDisplay.innerText += number;
-        console.log(inputDisplay.innerText);
+digits.forEach(digit => {
+    digit.addEventListener('click', () => {
+        document.querySelector('.display').innerHTML += digit.innerText;
     })
 })
 
 
-//clears display
-const clear = document.querySelector('.clear')
-clear.addEventListener('click', function() {
-    if (inputDisplay.innerText != '') {
-        inputDisplay.innerText = '';
+const plusMinus = document.querySelector('.plusMinus')
+
+plusMinus.addEventListener('click', function() {
+
+    const regex = /\-/
+
+    if (regex.test(document.querySelector('.display').innerHTML)) {
+        document.querySelector('.display').innerHTML = document.querySelector('.display').innerHTML.slice(1);
+    } else document.querySelector('.display').prepend('-')
+})
+
+
+const operators = document.querySelectorAll('.operator')
+
+operators.forEach(operator => {
+    operator.addEventListener('click', () => {
+
+        const regex = /\d/g;
+
+        if (regex.test(document.querySelector('.display').innerHTML)) {
+            document.querySelector('.display').innerHTML += operator.innerHTML;
+        } else return;
+  
+    })
+})
+
+const clearButton = document.querySelector('.clear')
+clearButton.addEventListener('click', function() {
+    document.querySelector('.display').innerHTML = ''
+});
+
+
+const equals = document.querySelector('.equals')
+equals.addEventListener('click', function() {
+
+    if (document.querySelector('.display').innerHTML.includes('+')) {
+        let nums = document.querySelector('.display').innerHTML.split('+')
+        nums = nums.map(num => parseFloat(num));
+
+        console.log(add(nums));
+
+        document.querySelector('.display').innerHTML = add(nums);
     }
-})
+
+    if (document.querySelector('.display').innerHTML.includes('—')) {
+        let nums = document.querySelector('.display').innerHTML.split('—')
+        nums = nums.map(num => parseFloat(num));
+
+        console.log(nums)
+        console.log(subtract(nums));
+
+        document.querySelector('.display').innerHTML = subtract(nums);
+    }
+
+    if (document.querySelector('.display').innerHTML.includes('X')) {
+        let nums = document.querySelector('.display').innerHTML.split('X')
+        nums = nums.map(num => parseFloat(num));
+
+        console.log(nums)
+        console.log(multiply(nums));
+
+        document.querySelector('.display').innerHTML = multiply(nums);
+    }
+
+    if (document.querySelector('.display').innerHTML.includes('÷')) {
+        let nums = document.querySelector('.display').innerHTML.split('÷')
+        nums = nums.map(num => parseFloat(num));
+
+        console.log(nums)
+        console.log(divide(nums));
+
+        document.querySelector('.display').innerHTML = divide(nums);
+    }
+
+    if (document.querySelector('.display').innerHTML.includes('%')) {
+        let num = document.querySelector('.display').innerHTML
+        num = parseFloat(num);
+
+        console.log(num)
+        console.log(percent(num));
+
+        document.querySelector('.display').innerHTML = percent(num);
+    }
+
+ })
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-/* what happens when equals is clicked
-equalsButton.addEventListener('click', function() {
-    inputDisplay.innerText += equalsButton.innerText
-    equation = inputDisplay.innerText.split('+')
-    operator = getOperator();
-    num1 = parseInt(equation[0]);
-    num2 = parseInt(equation[1]);
-
-    console.log(operate(num1, operator, num2));
-    console.log(operator);
-    
-})
-
-
-// displays number that is clicked
-const display = document.querySelectorAll('.display')
-
-display.forEach(display => {
-    display.addEventListener('click', function() {
-        inputDisplay.innerText += display.innerText;
-        //console.log(inputDisplay.innerText)
-    })
-}
-)
-
-*/
-
-
+// when a user selects a number, display the number, when they select a operator, add that operator to the number and then clear the screen, then when they select the second number split it into an array and run the specific operation function
