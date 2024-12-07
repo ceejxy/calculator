@@ -1,38 +1,47 @@
-html {
-    display: flex;
-    justify-content: center;
-    box-sizing: border-box;
+* {
+    padding: 0;
+    margin: 0;
 }
 
+body {
+    font-family: "Architects Daughter";
+    padding-top: 50px;
+    background-color: gray;
+}
 
 .mainContainer {
-    height: 700px;
-    width: 500px;
-    border: 1px solid black;
-    display: flex;
-    flex-direction: column;
-   
+    border: 4px solid black;
+    text-align: center;
+    width: 18%;
+    margin: auto;
+    height: auto;
+    border-radius: 5px;
+    background-color: whitesmoke;
+    box-shadow: 10px 10px 4px 4px rgba(0, 0, 0, 0.5);
 }
 
 .inputDisplay {
-    height: 150px;
-    width: 100%;
-    border: 1px solid black;
- 
+    border-bottom: 1px solid black;
+    height: 90px;
+    text-align: right;
+    line-height: 90px;
+    font-size: auto;
+    padding: 10px;
 }
 
 .buttonContainer {
-    border: 1px solid red;
-    width: 100%;
-    height: 100%;
     display: flex;
-    gap: 30px;
+    flex-wrap: wrap;
     justify-content: center;
 }
 
 button {
-    height: 80px;
-    width: 100px;
-    border-radius: 70px;
+    height: 90px;
+    width: 20%;
+    border-radius: 55px;
+    margin: 10px;
 }
 
+#zero {
+    flex-grow: 1;
+}
